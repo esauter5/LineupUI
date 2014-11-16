@@ -23,7 +23,34 @@ var LINEUP_GENERATOR = LINEUP_GENERATOR || (function () {
     $('span:nth-child(2)').html('');
     $('.glyphicon-remove-sign').hide();
     selectedPlayers = [];
+    $('#ceiling').text('');
+    $('#average').text('');
+    $('#floor').text('');
+    $('#dollars-left').html("$60000");
   };
+
+  var dollarsLeft = function () {
+    return 60000 - selectedPlayers.map(function (i) {
+          tempPlayers = players.filter(function (j) {
+            return j.player.name == i;
+          })
+            return tempPlayers[0].player.dollars;
+        }).reduce(function (a,b) {
+          return a + b;
+        }, 0);
+  }
+
+  var totals = function (type) {
+    return selectedPlayers.map(function (i) {
+          tempPlayers = players.filter(function (j) {
+            return j.player.name == i;
+          })
+            return tempPlayers[0].player[type];
+        }).reduce(function (a,b) {
+          return a + b;
+        });
+  }
+
 
   var j;
   var risk_array = ["Floor", "Average", "Ceiling"];
@@ -53,8 +80,15 @@ var LINEUP_GENERATOR = LINEUP_GENERATOR || (function () {
     });
 
   $('#generate-lineup').on('click', function () {
-    clearSelected();
-    $.ajax("http://localhost:3000/lineup?risk=" + risk[riskValue])
+    //clearSelected();
+    $.ajax({
+      url: "http://localhost:3000/lineup",
+      type: "POST",
+      data: {
+        risk: risk[riskValue],
+        include: selectedPlayers
+      }
+    })
       .done(function (data) {
         data.forEach(function (player) {
           var name = player.player.name;
@@ -66,44 +100,17 @@ var LINEUP_GENERATOR = LINEUP_GENERATOR || (function () {
           clickedPlayer.find('span:nth-child(2)').html(name);
           clickedPlayer.find('.glyphicon-remove-sign').show();
         });
-        dollarsLeft = 60000 - data.map(function (i) {
-          return i.player.dollars;
-        }).reduce(function (a,b) {
-          return a + b;
-        });
 
-        ceilingTotal = data.map(function (i) {
-          return i.player.ceiling;
-        }).reduce(function (a,b) {
-          return a + b;
-        });
-
-        $('#ceiling').text(ceilingTotal);
-
-        averageTotal = data.map(function (i) {
-          return i.player.ppg;
-        }).reduce(function (a,b) {
-          return a + b;
-        });
-
-        $('#average').text(averageTotal);
-
-        floorTotal = data.map(function (i) {
-          return i.player.floor;
-        }).reduce(function (a,b) {
-          return a + b;
-        });
-
-        $('#floor').text(floorTotal);
-
-        console.log("Ceiling:" + ceilingTotal);
-        console.log("Average:" + averageTotal);
-        console.log("Floor:" + floorTotal);
+        $('#ceiling').text(totals("ceiling"));
+        $('#average').text(totals("ppg"));
+        $('#floor').text(totals("floor"));
 
 
-        $('#dollars-left').html("$" + dollarsLeft);
+        $('#dollars-left').html("$" + dollarsLeft());
       });
   });
+
+  $('#clear-lineup').on('click', clearSelected);
 
   $('#selected-players').on('click', '.glyphicon-remove-sign', function () {
     $(this).hide();
@@ -111,6 +118,7 @@ var LINEUP_GENERATOR = LINEUP_GENERATOR || (function () {
     $('.list-group-item:contains(' + nameElement.text() + ')').show();
     selectedPlayers.splice(selectedPlayers.indexOf(nameElement.text()), 1);
     nameElement.html("");
+    $('#dollars-left').html("$" + dollarsLeft());
   });
 
   $('#lineup').on('click', '.list-group-item', function () {
@@ -122,6 +130,7 @@ var LINEUP_GENERATOR = LINEUP_GENERATOR || (function () {
       if (clickedPlayer.length != 0) { 
         $(this).hide();
         selectedPlayers.push(name);
+         $('#dollars-left').html("$" + dollarsLeft());
         clickedPlayer.removeClass('open').addClass('closed');
         clickedPlayer.find('span:nth-child(2)').html(name);
         clickedPlayer.find('.glyphicon-remove-sign').show();
