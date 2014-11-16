@@ -27,6 +27,7 @@ var LINEUP_GENERATOR = LINEUP_GENERATOR || (function () {
     $('#average').text('');
     $('#floor').text('');
     $('#dollars-left').html("$60000");
+    $('.list-group-item').css('display', 'block');
   };
 
   var dollarsLeft = function () {
