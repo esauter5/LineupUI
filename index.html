@@ -15,6 +15,8 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="jquery-ui/jquery-ui.min.css" />
+        <link rel="stylesheet" href="jquery-ui/jquery-ui.theme.min.css" />
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
@@ -24,11 +26,43 @@
 
         <!-- Add your site or application content here -->
         <div class="container">
-          <ul id="lineup" class="list-group">
-          </ul>
+          <div class="row">
+            <h2>Lineup Generator</h2>
+          </div>
+          <div class="row">
+            <div class="filter-tabs">
+              <a>PG</a><a>SG</a><a>SF</a><a>PF</a><a>C</a><a>All</a>
+            </div>
+            <div id="available-players" style="float:left;">
+              <ul id="lineup-header" class="list-group"><li class="list-group-item list-header"><ul class="player-list"><li>Position</li><li>Name</li><li>PPG</li><li>Dollars</li><li>Floor</li><li>Ceiling</li></ul></li></ul>
+              <ul id="lineup" class="players list-group"></ul>
+            </div>
+            <div id="selected-players" style="float:left;">
+              <span>Dollars left:</span><span id="dollars-left">$60,000</span>
+              <ul class="players list-group">
+                <li class="pg open list-group-item"><span>PG</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
+                <li class="pg open list-group-item"><span>PG</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
+                <li class="sg open list-group-item"><span>SG</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
+                <li class="sg open list-group-item"><span>SG</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
+                <li class="sf open list-group-item"><span>SF</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
+                <li class="sf open list-group-item"><span>SF</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
+                <li class="pf open list-group-item"><span>PF</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
+                <li class="pf open list-group-item"><span>PF</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
+                <li class="c open list-group-item"><span>C</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
+              </ul>
+              <div id="risk-slider"></div>
+              <button id="generate-lineup" style="float:right;" type="button" class="btn btn-primary">Generate Lineup</button>
+            </div>
+              <div id="pointTotals" style="float:left;margin-top:60px;margin-left:10px;">
+                <p>Ceiling: <span id="ceiling"></span></p>
+                <p>Average: <span id="average"></span></p>
+                <p>Floor: <span id="floor"></span></p>
+              </div>
+          </div>
         </div>
-        
+
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="jquery-ui/jquery-ui.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
