@@ -3,7 +3,7 @@ var LINEUP_GENERATOR = LINEUP_GENERATOR || (function () {
       filteredPlayers = [],
       selectedPlayers = [],
       riskValue = 1;
-      risk = ["floor", "ppg", "ceiling"];
+      risk = ["fp_min", "floor", "ppg", "ceiling", "fp_max"];
 
   var generateList = function () {
     $('#lineup').html('');
@@ -54,20 +54,20 @@ var LINEUP_GENERATOR = LINEUP_GENERATOR || (function () {
 
 
   var j;
-  var risk_array = ["Floor", "Average", "Ceiling"];
+  var risk_array = ["Min", "Floor", "Average", "Ceiling", "Max"];
 
   $('#risk-slider').slider({
-    value: 1,
+    value: 2,
     min: 0,
-    max: 2,
+    max: 4,
     step: 1,
     stop: function (event, ui) {
       riskValue = ui.value;
     }
   });
 
-  for (j = 0; j < 3; j++) {
-    var label = $('<label>' + risk_array[j] + '</label>').css('left', j/2*100 + "%");
+  for (j = 0; j < 5; j++) {
+    var label = $('<label>' + risk_array[j] + '</label>').css('left', j/4*100 + "%");
     $('#risk-slider').append(label);
   }
 
@@ -102,10 +102,11 @@ var LINEUP_GENERATOR = LINEUP_GENERATOR || (function () {
           clickedPlayer.find('.glyphicon-remove-sign').show();
         });
 
+        $('#max').text(totals("fp_max"));
         $('#ceiling').text(totals("ceiling"));
         $('#average').text(totals("ppg"));
         $('#floor').text(totals("floor"));
-
+        $('#min').text(totals("fp_min"));
 
         $('#dollars-left').html("$" + dollarsLeft());
       });
