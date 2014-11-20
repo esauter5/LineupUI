@@ -18,9 +18,41 @@ var LineupGenerator = React.createClass({
       };
   },
 
+  handleXClick: function (i) {
+    var selectedPlayers = this.state.selectedPlayers;
+    selectedPlayers[i].name = "";
+    this.setState({selectedPlayers: selectedPlayers})
+  },
+
+  handlePlayerClick: function (i) {
+    var count;
+    var players = this.state.players;
+    var selectedPlayers = this.state.selectedPlayers;
+    for (count = 0; count < selectedPlayers.length; count++) {
+      if (selectedPlayers[count].position === players[i].position && selectedPlayers[count].name === "") {
+        players[i].selected = true;
+        selectedPlayers[count].name = players[i].name;
+        break;
+      }
+    }
+    console.log(selectedPlayers)
+    this.setState({players: players, selectedPlayers: selectedPlayers});
+  },
+
+  handleClear: function () {
+    var selectedPlayers = this.state.selectedPlayers.map(function (p) {
+      p.name = "";
+      return p;
+    });
+
+    this.setState({selectedPlayers: selectedPlayers})
+  },
+
   componentDidMount: function () {
     $.get("http://localhost:3000/players", function(data) {
-      var players = data.map(function (d) {
+      var players = data.map(function (d,i) {
+        d.player.selected = false;
+        d.player.index = i;
         return d.player;
       });
       this.setState({players: players})
@@ -28,14 +60,18 @@ var LineupGenerator = React.createClass({
   },
 
   render: function () {
+    var availablePlayers = this.state.players.filter(function (player) {
+      return player.selected == false;
+    })
+
     return (
       <div id="lineup-generator">
         <h1>Lineup Generator</h1>
         <div className={"row"}>
-          <PlayerTable players={this.state.players} />
+          <PlayerTable players={availablePlayers} onPlayerClick={this.handlePlayerClick}/>
           <div className={"col-md-4"}>
-            <SelectedPlayers selectedPlayers={this.state.selectedPlayers} />
-            <ClearButton />
+            <SelectedPlayers onXClick={this.handleXClick} selectedPlayers={this.state.selectedPlayers} />
+            <ClearButton onClear={this.handleClear} />
             <GenerateButton />
           </div>
         </div>

@@ -2,7 +2,7 @@ var Player = React.createClass({
   render: function () {
     var player = this.props.player;
     return (
-      <tr>
+      <tr onClick={this.props.handleClick}>
         <td>{player.position}</td>
         <td>{player.name}</td>
         <td>{player.dollars}</td>

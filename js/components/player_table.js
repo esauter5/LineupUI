@@ -1,10 +1,10 @@
 var PlayerTable = React.createClass({
   render: function () {
-    var playerList = this.props.players.map(function (player, i) {
+    var playerList = this.props.players.map(function (player) {
       return (
-        <Player player={player} key={i} />
+        <Player player={player} key={player.index} handleClick={this.props.onPlayerClick.bind(null, player.index)} />
       );
-    });
+    }.bind(this));
 
     return (
       <div className={"col-md-8"}>
