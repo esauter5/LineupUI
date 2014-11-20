@@ -13,9 +13,19 @@ var LineupGenerator = React.createClass({
       ];
 
       return {
-        players: {},
+        players: [],
         selectedPlayers: selectedPlayers
       };
+  },
+
+  componentDidMount: function () {
+    $.get("http://localhost:3000/players", function(data) {
+      var players = data.map(function (d) {
+        return d.player;
+      });
+      debugger;
+      this.setState({players: players})
+    }.bind(this));
   },
 
   render: function () {
@@ -23,7 +33,7 @@ var LineupGenerator = React.createClass({
       <div id="lineup-generator">
         <h1>Lineup Generator</h1>
         <div className={"row"}>
-          <PlayerTable players={this.props.players} />
+          <PlayerTable players={this.state.players} />
           <div className={"col-md-4"}>
             <SelectedPlayers selectedPlayers={this.state.selectedPlayers} />
             <ClearButton />
