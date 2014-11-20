@@ -306,80 +306,29 @@ textarea {
 /* Custom styles */
 
 .container {
-  padding: 5%;
-}
-
-#lineup {
-  height:500px;
-  width: 100%;
-  overflow: scroll;
-  border: 1px solid lightgrey;
-}
-
-#lineup-header {
-  width:100%;
-  margin-bottom: 0px;
-}
-
-#lineup li {
-  border-right: 0px !important;
-  border-left: 0px !important;
-}
-
-.player-list li {
-  display: inline-block;
-  width: 12%;
-  margin-left: 2%;
-  margin-right: 2%;
-}
-
-.list-header {
-  background-color: lightblue !important;
-}
-
-.list-group-item:not(.list-header):hover {
-  background-color: lightgrey;
-  cursor: pointer;
-}
-
-.filter-tabs a {
-  margin-left: 2px;
-  margin-right: 2px;
-  padding: 3px;
-  cursor: pointer;
-}
-
-#available-players {
-  width: 55%;
 }
 
 #selected-players {
-  margin-left: 20px;
-  margin-top: 50px;
-  width: 25%;
+  padding: 0;
 }
 
-.players span {
-  margin-right: 10px;
-}
-
-#selected-players .glyphicon-remove-sign {
+.glyphicon-remove-sign {
   color: red;
-  float: right;
-  display: none;
-}
-
-#risk-slider {
-  margin-bottom: 25px;
   cursor: pointer;
-  position: relative;
 }
 
-#risk-slider label {
-  position: absolute;
-  width: 20px;
-  font-size: 10px;
-  margin-top: 15px;
-  margin-left: -10px;
-  text-align: center;
+#player-table tbody tr {
+  cursor: pointer;
+}
+
+#player-table tbody tr:hover {
+  background-color: #87CEFA;
+}
+
+#clear-lineup {
+  margin-right: 15px;
+}
+
+.selected-position {
+  margin-right: 15px;
 }
