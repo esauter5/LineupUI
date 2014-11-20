@@ -23,7 +23,6 @@ var LineupGenerator = React.createClass({
       var players = data.map(function (d) {
         return d.player;
       });
-      debugger;
       this.setState({players: players})
     }.bind(this));
   },
