@@ -332,3 +332,28 @@ textarea {
 .selected-position {
   margin-right: 15px;
 }
+
+#exclude-players {
+  margin-top: 15px;
+}
+
+#exclude-players input {
+  position: relative;
+}
+
+#exclude-players ul {
+  position: absolute;
+  list-style: none;
+  padding: 0px;
+  border: 1px solid #aaaaaa;
+  width: 154px;
+}
+
+#exclude-players li {
+  padding: 5px 0;
+}
+
+#exclude-players li:hover {
+  background-color: #87CEFA;
+  cursor: pointer;
+}

@@ -14,8 +14,22 @@ var LineupGenerator = React.createClass({
 
       return {
         players: [],
-        selectedPlayers: selectedPlayers
+        selectedPlayers: selectedPlayers,
+        excludedPlayers: []
       };
+  },
+
+  handleExcludeChange: function (e) {
+    var excludedPlayers = [];
+
+    if (e.target.value != "") {
+      this.state.players.forEach(function (p) {
+        if (p.name.indexOf(e.target.value) != -1) {
+          excludedPlayers.push(p);
+        }
+      });
+    }
+    this.setState({ excludedPlayers: excludedPlayers });
   },
 
   handleXClick: function (i) {
@@ -73,6 +87,7 @@ var LineupGenerator = React.createClass({
             <SelectedPlayers onXClick={this.handleXClick} selectedPlayers={this.state.selectedPlayers} />
             <ClearButton onClear={this.handleClear} />
             <GenerateButton />
+            <Autocomplete excludeChange={this.handleExcludeChange} excludedPlayers={this.state.excludedPlayers}/>
           </div>
         </div>
       </div>
