@@ -33,7 +33,7 @@ var LineupGenerator = React.createClass({
       });
 
     $.ajax({
-      url: "http://localhost:3000/lineup",
+      url: "http://203e44e2.ngrok.com/lineup",
       type: "POST",
       data: {
         risk: risk,
@@ -131,7 +131,7 @@ var LineupGenerator = React.createClass({
   },
 
   componentDidMount: function () {
-    $.get("http://localhost:3000/players", function(data) {
+    $.get("http://203e44e2.ngrok.com/players", function(data) {
       var players = data.map(function (d,i) {
         d.player.selected = false;
         d.player.index = i;
