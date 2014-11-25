@@ -333,15 +333,16 @@ textarea {
   margin-right: 15px;
 }
 
-#exclude-players {
+#excluded-autocomplete, #excluded-selected {
   margin-top: 15px;
+  float:left;
 }
 
-#exclude-players input {
+#excluded-autocomplete input {
   position: relative;
 }
 
-#exclude-players ul {
+#excluded-autocomplete ul {
   position: absolute;
   list-style: none;
   padding: 0px;
@@ -349,11 +350,27 @@ textarea {
   width: 154px;
 }
 
-#exclude-players li {
+#excluded-autocomplete li {
   padding: 5px 0;
 }
 
-#exclude-players li:hover {
+#excluded-autocomplete li:hover {
   background-color: #87CEFA;
   cursor: pointer;
+}
+
+#risk-type {
+  margin-top: 15px;
+}
+
+#risk-type select {
+  margin-left: 10px;
+}
+
+.hide-item {
+  display: none;
+}
+
+#excluded-selected .glyphicon {
+  margin-left: 10px;
 }

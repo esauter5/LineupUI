@@ -26,51 +26,48 @@
 
         <!-- Add your site or application content here -->
         <div class="container">
-          <div class="row">
-            <h2>Lineup Generator</h2>
-          </div>
-          <div class="row">
-            <div class="filter-tabs">
-              <a>PG</a><a>SG</a><a>SF</a><a>PF</a><a>C</a><a>All</a>
-            </div>
-            <div id="available-players" style="float:left;">
-              <ul id="lineup-header" class="list-group"><li class="list-group-item list-header"><ul class="player-list"><li>Position</li><li>Name</li><li>PPG</li><li>Dollars</li><li>Floor</li><li>Ceiling</li></ul></li></ul>
-              <ul id="lineup" class="players list-group"></ul>
-            </div>
-            <div id="selected-players" style="float:left;">
-              <span>Dollars left: </span><span id="dollars-left">$60000</span>
-              <ul class="players list-group">
-                <li class="pg open list-group-item"><span>PG</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
-                <li class="pg open list-group-item"><span>PG</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
-                <li class="sg open list-group-item"><span>SG</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
-                <li class="sg open list-group-item"><span>SG</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
-                <li class="sf open list-group-item"><span>SF</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
-                <li class="sf open list-group-item"><span>SF</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
-                <li class="pf open list-group-item"><span>PF</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
-                <li class="pf open list-group-item"><span>PF</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
-                <li class="c open list-group-item"><span>C</span><span></span><span class="glyphicon glyphicon-remove-sign"></span></li>
-              </ul>
-              <div id="risk-slider"></div>
-              <button id="clear-lineup" style="float:left;" type="button" class="btn btn-danger">Clear Lineup</button>
-              <button id="generate-lineup" style="float:right;" type="button" class="btn btn-primary">Generate Lineup</button>
-            </div>
-              <div id="pointTotals" style="float:left;margin-top:60px;margin-left:10px;">
-                <p>Max: <span id="max"></span></p>
-                <p>Ceiling: <span id="ceiling"></span></p>
-                <p>Average: <span id="average"></span></p>
-                <p>Floor: <span id="floor"></span></p>
-                <p>Min: <span id="min"></span></p>
-              </div>
-          </div>
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="jquery-ui/jquery-ui.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="bower_components/react/react.min.js"></script>
+        <script src="bower_components/react/JSXTransformer.js"></script>
+        <script src="js/components/player.js" type="text/jsx"></script>
+        <script src="js/components/player_table.js" type="text/jsx"></script>
+        <script src="js/components/selected_players.js" type="text/jsx"></script>
+        <script src="js/components/clear_button.js" type="text/jsx"></script>
+        <script src="js/components/generate_button.js" type="text/jsx"></script>
+        <script src="js/components/lineup_generator.js" type="text/jsx"></script>
+        <script src="js/components/autocomplete.js" type="text/jsx"></script>
+        <script src="js/components/excluded-players.js" type="text/jsx"></script>
+        <script src="js/components/risk_selector.js" type="text/jsx"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
+        <script type="text/jsx">
+          var PLAYERS = [
+            {name: "Lebron James", position: "SF", dollars: "10100", ppg: 48.8, ceiling: 55.1, floor: 40.1},
+            {name: "Carmelo Anthony", position: "SF", dollars: "10100", ppg: 48.8, ceiling: 55.1, floor: 40.1},
+            {name: "Chris Paul", position: "PG", dollars: "10100", ppg: 48.8, ceiling: 55.1, floor: 40.1},
+            {name: "Kobe Bryant", position: "SG", dollars: "10100", ppg: 48.8, ceiling: 55.1, floor: 40.1},
+          ];
+
+          var SELECTED_PLAYERS = [
+            {name: "", position: "PG"},
+            {name: "", position: "PG"},
+            {name: "", position: "SG"},
+            {name: "", position: "SG"},
+            {name: "Lebron James", position: "SF"},
+            {name: "Carmelo Anthony", position: "SF"},
+            {name: "", position: "PF"},
+            {name: "", position: "PF"},
+            {name: "", position: "C"}
+          ];
+          React.render(
+            <LineupGenerator players={PLAYERS} selectedPlayers={SELECTED_PLAYERS}/>,
+            document.getElementsByClassName('container')[0]
+          )
+        </script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
